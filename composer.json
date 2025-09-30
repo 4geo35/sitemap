@@ -1,0 +1,26 @@
+{
+    "name": "4geo35/sitemap",
+    "description": "Add sitemap to app",
+    "minimum-stability": "dev",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Natalie",
+            "email": "n.borisova@me.com"
+        }
+    ],
+    "require": {
+    },
+    "autoload": {
+        "psr-4": {
+            "GIS\\Sitemap\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "GIS\\Sitemap\\SitemapServiceProvider"
+            ]
+        }
+    }
+}
