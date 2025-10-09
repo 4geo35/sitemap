@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    @if($routes && count($routes))
-        @foreach ($routes as $map => $item)
+    @if($routes["routes"] && count($routes["routes"]))
+        @foreach ($routes["routes"] as $map => $item)
             @if(empty($item->model))
                 <url>
                     <loc>{{ route($item->name) }}</loc>

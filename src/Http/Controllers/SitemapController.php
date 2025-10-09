@@ -41,8 +41,8 @@ class SitemapController extends Controller
      */
     public function model($model){
         $all = $this->getRoutes("show");
-        if (empty($all) || !isset($all[$model]))  return redirect(route("web.sitemap.index"));
-        $routes = $this->getModelRoutes($all[$model]);
+        if (empty($all) || !isset($all["routes"][$model]))  return redirect(route("web.sitemap.index"));
+        $routes = $this->getModelRoutes($all["routes"][$model]);
 
         return response()
             ->view("sitemap::web.sitemap.show", compact("routes"))
@@ -90,7 +90,7 @@ class SitemapController extends Controller
                     else $array[$uri."-list"] = $obj;
                 }
             }
-            return $type == "show" ? $arrayShow : $array;
+            return ["routes" => $type == "show" ? $arrayShow : $array, "date"=>date('Y-m-d')];
         });
     }
 
@@ -133,11 +133,11 @@ class SitemapController extends Controller
                             "uri"=> route( $routeObject->name,[$routeObject->param => $model]),
                             "model" => $routeObject->model,
                             "param" => $routeObject->param,
-                            "loaded_at" => $model->updated_at
+                            "loaded_at" => date('Y-m-d', $model->updated_at->timestamp)
                         ];
                 }
             }
-            return $routes;
+            return ["routes" => $routes];
         });
     }
 }

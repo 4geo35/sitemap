@@ -3,15 +3,15 @@
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <sitemap>
         <loc>{{ route('web.sitemap.map') }}</loc>
-        <lastmod></lastmod>
+        <lastmod>{{ $routes["date"] }}</lastmod>
     </sitemap>
 
-    @if($routes)
-        @foreach($routes as $name => $item)
+    @if($routes["routes"])
+        @foreach($routes["routes"] as $name => $item)
             @if ($item->model)
                 <sitemap>
                     <loc>{{ route('web.sitemap.model', ['model' => $name]) }}</loc>
-                    <lastmod></lastmod>
+                    <lastmod>{{ isset($routes["date"]) ? $routes["date"]:"" }}</lastmod>
                     <changefreq>daily</changefreq>
                 </sitemap>
             @endif
