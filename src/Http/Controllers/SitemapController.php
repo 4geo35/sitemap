@@ -4,6 +4,7 @@ namespace GIS\Sitemap\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
@@ -59,7 +60,9 @@ class SitemapController extends Controller
             $routes = Route::getRoutes();
             $array = [];
             $arrayShow = [];
+
             foreach ($routes->getRoutesByName() as $name => $route) {
+
                 if (
                     in_array("GET", $route->methods) &&
                     ! in_array($name, config("sitemap.exclude",[])) &&
@@ -72,7 +75,13 @@ class SitemapController extends Controller
                     $uri = $route->uri();
                     $modelName = false;
                     $param = false;
-                    if ($show = strstr(str_ireplace("web.", "",$name),".show",true)){
+
+                    $subRoute = str_ireplace("web.", "",$name);
+                    $show = strstr($subRoute,".show",true);
+                    if (! $show) $show = strstr($subRoute,"category");
+                    if (! $show) $show = strstr($subRoute,"product");
+
+                    if ($show){
                         $modelName = $this->getModelName($show, $name);
                         $params = $route->parameterNames();
                         $param = isset($params[0]) ? $params[0] : false;
