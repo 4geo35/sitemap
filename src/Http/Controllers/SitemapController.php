@@ -80,6 +80,8 @@ class SitemapController extends Controller
                     $show = strstr($subRoute,".show",true);
                     if (! $show) $show = strstr($subRoute,"category");
                     if (! $show) $show = strstr($subRoute,"product");
+                    if (! $show) $show = strstr($subRoute,"department");
+                    if (! $show) $show = strstr($subRoute,"doctor");
 
                     if ($show){
                         $modelName = $this->getModelName($show, $name);
