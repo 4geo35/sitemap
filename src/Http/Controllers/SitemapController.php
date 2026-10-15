@@ -138,7 +138,7 @@ class SitemapController extends Controller
                 $query = $class::query()->select();
                 $models = $query->get();
                 foreach ($models as $model){
-                    if ($model->published_at)
+                    if (($model->hasAttribute('published_at') && $model->published_at) || (!$model->hasAttribute('published_at')))
                         $routes[] = (Object)[
                             "name"=> $routeObject->name,
                             "uri"=> route( $routeObject->name,[$routeObject->param => $model]),
